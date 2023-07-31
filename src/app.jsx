@@ -1,5 +1,4 @@
 import { useState } from 'preact/hooks'
-import "./app.css"
 
 const userDataSrc = "https://randomuser.me/api/";
 const userData = await fetch(userDataSrc)
@@ -7,15 +6,15 @@ const userData = await fetch(userDataSrc)
   .then(data => data.results[0])
   .catch(err => err);
 
-const avatar = userData.picture.thumbnail;
+const avatar = userData.picture.large;
 const name = userData.name.first + " " + userData.name.last;
 const email = "mailto:" + userData.email;
 const phone = "tel:" + userData.phone;
 
 function LikeButton({ state, handleClick }) {
-  const classname = "bi bi-heart" + (state ? "-fill" : "");
+  const classname = "text-4xl bi bi-heart" + (state ? "-fill" : "");
   return (
-    <button onClick={handleClick}>
+    <button onClick={handleClick} class="text-pink-600">
       <i class={classname}></i>
     </button>
   )
@@ -28,19 +27,19 @@ export function App() {
 
   return (
     <>
-      <div id="user">
-        <img src={avatar} />
-        <h1>{name}</h1>
+      <div class="flex items-center h-2/3 w-3/4">
+        <img src={avatar} class="rounded-full w-1/4 aspect-square border-2 mx-4" />
+        <h1 class="text-2xl font-bold text-center" >{name}</h1>
       </div>
-      <div id="social">
-        <LikeButton state={likeState} handleClick={() => { setLikeState(!likeState) }} />
-        <a href={email}>
-          <i class="bi bi-envelope-fill"></i>
+      <div class="h-1/3 flex justify-evenly items-center">
+        <LikeButton state={likeState} handleClick={() => setLikeState(!likeState)} />
+        <a href={email} class="text-yellow-500">
+          <i class="text-4xl bi bi-envelope-fill"></i>
         </a>
-        <a href={phone}>
-          <i class="bi bi-telephone-fill"></i>
+        <a href={phone} class="text-green-600">
+          <i class="text-4xl bi bi-telephone-fill"></i>
         </a>
-      </div >
+      </div>
     </>
   )
 }
